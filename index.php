@@ -80,7 +80,7 @@ error_reporting(0);
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="resentnewcar">
 
-<?php $sql = "SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.ModelYear,tblhalls.id,tblhalls.Capacity,tblhalls.HallOverview,tblhalls.Vimage1 from tblhalls join tblcities on tblcities.id=tblhalls.CityId";
+<?php $sql = "SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.Area,tblhalls.id,tblhalls.Capacity,tblhalls.HallOverview,tblhalls.Vimage1 from tblhalls join tblcities on tblcities.id=tblhalls.CityId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -93,15 +93,15 @@ foreach($results as $result)
 
 <div class="col-list-3">
 <div class="recent-car-list">
-<div class="car-info-box"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image"></a>
+<div class="car-info-box"> <a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image"></a>
 <ul>
 <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->HallType);?></li>
-<li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> Model</li>
-<li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> seats</li>
+<li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->Area);?> Area</li>
+<li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> capacity</li>
 </ul>
 </div>
 <div class="car-title-m">
-<h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h6>
+<h6><a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h6>
 <span class="price">$<?php echo htmlentities($result->PricePerDay);?> /Day</span>
 </div>
 <div class="inventory_info_m">

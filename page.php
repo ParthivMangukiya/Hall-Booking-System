@@ -35,7 +35,7 @@ include('includes/config.php');
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-        
+
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
@@ -45,13 +45,9 @@ include('includes/config.php');
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 <body>
-<<!-- Start Switcher -->
-<?php include('includes/colorswitcher.php');?>
-<!-- /Switcher -->  
-        
 <!--Header-->
 <?php include('includes/header.php');?>
-                      <?php 
+                      <?php
 $pagetype=$_GET['type'];
 $sql = "SELECT type,detail,PageName from tblpages where type=:pagetype";
 $query = $dbh -> prepare($sql);
@@ -89,7 +85,7 @@ foreach($results as $result)
    <?php } }?>
   </div>
 </section>
-<!-- /About-us--> 
+<!-- /About-us-->
 
 
 
@@ -97,35 +93,35 @@ foreach($results as $result)
 
 <<!--Footer -->
 <?php include('includes/footer.php');?>
-<!-- /Footer--> 
+<!-- /Footer-->
 
 <!--Back to top-->
 <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-<!--/Back to top--> 
+<!--/Back to top-->
 
 <!--Login-Form -->
 <?php include('includes/login.php');?>
-<!--/Login-Form --> 
+<!--/Login-Form -->
 
 <!--Register-Form -->
 <?php include('includes/registration.php');?>
 
-<!--/Register-Form --> 
+<!--/Register-Form -->
 
 <!--Forgot-password-Form -->
 <?php include('includes/forgotpassword.php');?>
-<!--/Forgot-password-Form --> 
+<!--/Forgot-password-Form -->
 
-<!-- Scripts --> 
+<!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script> 
-<script src="assets/js/interface.js"></script> 
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/interface.js"></script>
 <!--Switcher-->
 <script src="assets/switcher/js/switcher.js"></script>
-<!--bootstrap-slider-JS--> 
-<script src="assets/js/bootstrap-slider.min.js"></script> 
-<!--Slider-JS--> 
-<script src="assets/js/slick.min.js"></script> 
+<!--bootstrap-slider-JS-->
+<script src="assets/js/bootstrap-slider.min.js"></script>
+<!--Slider-JS-->
+<script src="assets/js/slick.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
 
 </body>

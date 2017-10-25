@@ -42,7 +42,7 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>Hall Rental Port | Vehicle Details</title>
+<title>Hall Rental Port | Hall Details</title>
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
@@ -73,10 +73,6 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 <body>
-
-<!-- Start Switcher -->
-<?php include('includes/colorswitcher.php');?>
-<!-- /Switcher -->
 
 <!--Header-->
 <?php include('includes/header.php');?>
@@ -135,8 +131,8 @@ $_SESSION['brndid']=$result->bid;
           <ul>
 
             <li> <i class="fa fa-calendar" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->ModelYear);?></h5>
-              <p>Reg.Year</p>
+              <h5><?php echo htmlentities($result->Area);?></h5>
+              <p>Area</p>
             </li>
             <li> <i class="fa fa-cogs" aria-hidden="true"></i>
               <h5><?php echo htmlentities($result->HallType);?></h5>
@@ -145,7 +141,7 @@ $_SESSION['brndid']=$result->bid;
 
             <li> <i class="fa fa-user-plus" aria-hidden="true"></i>
               <h5><?php echo htmlentities($result->Capacity);?></h5>
-              <p>Seats</p>
+              <p>Capacity</p>
             </li>
           </ul>
         </div>
@@ -153,9 +149,9 @@ $_SESSION['brndid']=$result->bid;
           <div class="listing_detail_wrap">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs gray-bg" role="tablist">
-              <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Vehicle Overview </a></li>
+              <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Hall Overview </a></li>
 
-              <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Accessories</a></li>
+              <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Facilities</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -167,13 +163,13 @@ $_SESSION['brndid']=$result->bid;
               </div>
 
 
-              <!-- Accessories -->
+              <!-- Facilities -->
               <div role="tabpanel" class="tab-pane" id="accessories">
-                <!--Accessories-->
+                <!--Facilities-->
                 <table>
                   <thead>
                     <tr>
-                      <th colspan="2">Accessories</th>
+                      <th colspan="2">Facilities</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -365,7 +361,7 @@ $_SESSION['brndid']=$result->bid;
       <div class="row">
 <?php
 $bid=$_SESSION['brndid'];
-$sql="SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.ModelYear,tblhalls.id,tblhalls.Capacity,tblhalls.HallOverview,tblhalls.Vimage1 from tblhalls join tblcities on tblcities.id=tblhalls.CityId where tblhalls.CityId=:bid";
+$sql="SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.Area,tblhalls.id,tblhalls.Capacity,tblhalls.HallOverview,tblhalls.Vimage1 from tblhalls join tblcities on tblcities.id=tblhalls.CityId where tblhalls.CityId=:bid";
 $query = $dbh -> prepare($sql);
 $query->bindParam(':bid',$bid, PDO::PARAM_STR);
 $query->execute();
@@ -377,16 +373,16 @@ foreach($results as $result)
 { ?>
         <div class="col-md-3 grid_listing">
           <div class="product-listing-m gray-bg">
-            <div class="product-listing-img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" /> </a>
+            <div class="product-listing-img"> <a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" /> </a>
             </div>
             <div class="product-listing-content">
-              <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h5>
+              <h5><a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h5>
               <p class="list-price">$<?php echo htmlentities($result->PricePerDay);?></p>
 
               <ul class="features_list">
 
-             <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> seats</li>
-                <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
+             <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> capacity</li>
+                <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->Area);?> Area</li>
                 <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->HallType);?></li>
               </ul>
             </div>
