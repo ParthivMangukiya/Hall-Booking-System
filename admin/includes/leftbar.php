@@ -4,10 +4,10 @@
 				<li class="ts-label">Main</li>
 				<li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-<li><a href="#"><i class="fa fa-files-o"></i> Brands</a>
+<li><a href="#"><i class="fa fa-files-o"></i> Cities</a>
 <ul>
-<li><a href="create-brand.php">Create Brand</a></li>
-<li><a href="manage-brands.php">Manage Brands</a></li>
+<li><a href="create-city.php">Create City</a></li>
+<li><a href="manage-cities.php">Manage Cities</a></li>
 </ul>
 </li>
 

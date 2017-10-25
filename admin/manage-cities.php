@@ -3,26 +3,24 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+	{
 header('location:index.php');
 }
 else{
-// Code for change password	
-if(isset($_POST['submit']))
+if(isset($_GET['del']))
 {
-$brand=$_POST['brand'];
-$id=$_GET['id'];
-$sql="update  tblbrands set BrandName=:brand where id=:id";
+$id=$_GET['del'];
+$sql = "delete from tblcities  WHERE id=:id";
 $query = $dbh->prepare($sql);
-$query->bindParam(':brand',$brand,PDO::PARAM_STR);
-$query->bindParam(':id',$id,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-
-$msg="Brand updted successfully";
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> execute();
+$msg="Page data updated  successfully";
 
 }
-?>
+
+
+
+ ?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -34,8 +32,8 @@ $msg="Brand updted successfully";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
-	<title>Car Rental Portal | Admin Create Brand</title>
+
+	<title>Car Rental Portal |Admin Manage Cities   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -72,78 +70,83 @@ $msg="Brand updted successfully";
 }
 		</style>
 
-
 </head>
 
 <body>
 	<?php include('includes/header.php');?>
+
 	<div class="ts-main-content">
-	<?php include('includes/leftbar.php');?>
+		<?php include('includes/leftbar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
 
 				<div class="row">
 					<div class="col-md-12">
-					
-						<h2 class="page-title">Create Brand</h2>
 
-						<div class="row">
-							<div class="col-md-10">
-								<div class="panel panel-default">
-									<div class="panel-heading">Form fields</div>
-									<div class="panel-body">
-										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+						<h2 class="page-title">Manage Cities</h2>
+
+						<!-- Zero Configuration Table -->
+						<div class="panel panel-default">
+							<div class="panel-heading">Listed  Cities</div>
+							<div class="panel-body">
+							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+										<th>#</th>
+												<th>City Name</th>
+											<th>Creation Date</th>
+											<th>Updation date</th>
 
-<?php	
-$id=$_GET['id'];
-$ret="select * from tblbrands where id=:id";
-$query= $dbh -> prepare($ret);
-$query->bindParam(':id',$id, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+										<th>#</th>
+											<th>City Name</th>
+											<th>Creation Date</th>
+											<th>Updation date</th>
+
+											<th>Action</th>
+										</tr>
+										</tr>
+									</tfoot>
+									<tbody>
+
+									<?php $sql = "SELECT * from  tblcities ";
+$query = $dbh -> prepare($sql);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
-if($query -> rowCount() > 0)
+if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{
-?>
+{				?>
+										<tr>
+											<td><?php echo htmlentities($cnt);?></td>
+											<td><?php echo htmlentities($result->CityName);?></td>
+											<td><?php echo htmlentities($result->CreationDate);?></td>
+											<td><?php echo htmlentities($result->UpdationDate);?></td>
+<td><a href="edit-city.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="manage-cities.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+										</tr>
+										<?php $cnt=$cnt+1; }} ?>
 
-											<div class="form-group">
-												<label class="col-sm-4 control-label">Brand Name</label>
-												<div class="col-sm-8">
-													<input type="text" class="form-control" value="<?php echo htmlentities($result->BrandName);?>" name="brand" id="brand" required>
-												</div>
-											</div>
-											<div class="hr-dashed"></div>
-											
-										<?php }} ?>
-								
-											
-											<div class="form-group">
-												<div class="col-sm-8 col-sm-offset-4">
-								
-													<button class="btn btn-primary" name="submit" type="submit">Submit</button>
-												</div>
-											</div>
+									</tbody>
+								</table>
 
-										</form>
 
-									</div>
-								</div>
+
 							</div>
-							
 						</div>
-						
-					
+
+
 
 					</div>
 				</div>
-				
-			
+
 			</div>
 		</div>
 	</div>
@@ -158,8 +161,6 @@ foreach($results as $result)
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
-
 </body>
-
 </html>
 <?php } ?>

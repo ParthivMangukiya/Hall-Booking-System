@@ -3,10 +3,10 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+	{
 header('location:index.php');
 }
-else{ 
+else{
 
 if(isset($_POST['submit']))
   {
@@ -72,7 +72,7 @@ if($lastInsertId)
 {
 $msg="Vehicle posted successfully";
 }
-else 
+else
 {
 $error="Something went wrong. Please try again";
 }
@@ -91,7 +91,7 @@ $error="Something went wrong. Please try again";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
+
 	<title>Car Rental Portal | Admin Post Vehicle</title>
 
 	<!-- Font awesome -->
@@ -140,14 +140,14 @@ $error="Something went wrong. Please try again";
 
 				<div class="row">
 					<div class="col-md-12">
-					
+
 						<h2 class="page-title">Post A Vehicle</h2>
 
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">Basic Info</div>
-<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
 									<div class="panel-body">
@@ -161,7 +161,7 @@ $error="Something went wrong. Please try again";
 <div class="col-sm-4">
 <select class="selectpicker" name="brandname" required>
 <option value=""> Select </option>
-<?php $ret="select id,BrandName from tblbrands";
+<?php $ret="select id,CityName from tblcities";
 $query= $dbh -> prepare($ret);
 //$query->bindParam(':id',$id, PDO::PARAM_STR);
 $query-> execute();
@@ -171,13 +171,13 @@ if($query -> rowCount() > 0)
 foreach($results as $result)
 {
 ?>
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?></option>
+<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?></option>
 <?php }} ?>
 
 </select>
 </div>
 </div>
-											
+
 <div class="hr-dashed"></div>
 <div class="form-group">
 <label class="col-sm-2 control-label">Vehical Overview<span style="color:red">*</span></label>
@@ -246,12 +246,12 @@ Image 5<input type="file" name="img5">
 </div>
 
 </div>
-<div class="hr-dashed"></div>									
+<div class="hr-dashed"></div>
 </div>
 </div>
 </div>
 </div>
-							
+
 
 <div class="row">
 <div class="col-md-12">
@@ -351,13 +351,13 @@ Image 5<input type="file" name="img5">
 								</div>
 							</div>
 						</div>
-						
-					
+
+
 
 					</div>
 				</div>
-				
-			
+
+
 
 			</div>
 		</div>

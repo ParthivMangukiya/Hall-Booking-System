@@ -131,7 +131,7 @@ $msg="Data updated successfully";
 <?php if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 <?php 
 $id=intval($_GET['id']);
-$sql ="SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id=:id";
+$sql ="SELECT tblvehicles.*,tblcities.CityName,tblcities.id as bid from tblvehicles join tblcities on tblcities.id=tblvehicles.VehiclesBrand where tblvehicles.id=:id";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':id', $id, PDO::PARAM_STR);
 $query->execute();
@@ -151,8 +151,8 @@ foreach($results as $result)
 <label class="col-sm-2 control-label">Select Brand<span style="color:red">*</span></label>
 <div class="col-sm-4">
 <select class="selectpicker" name="brandname" required>
-<option value="<?php echo htmlentities($result->bid);?>"><?php echo htmlentities($bdname=$result->BrandName); ?> </option>
-<?php $ret="select id,BrandName from tblbrands";
+<option value="<?php echo htmlentities($result->bid);?>"><?php echo htmlentities($bdname=$result->CityName); ?> </option>
+<?php $ret="select id,CityName from tblcities";
 $query= $dbh -> prepare($ret);
 //$query->bindParam(':id',$id, PDO::PARAM_STR);
 $query-> execute();
@@ -161,12 +161,12 @@ if($query -> rowCount() > 0)
 {
 foreach($resultss as $results)
 {
-if($results->BrandName==$bdname)
+if($results->CityName==$bdname)
 {
 continue;
 } else{
 ?>
-<option value="<?php echo htmlentities($results->id);?>"><?php echo htmlentities($results->BrandName);?></option>
+<option value="<?php echo htmlentities($results->id);?>"><?php echo htmlentities($results->CityName);?></option>
 <?php }}} ?>
 
 </select>
