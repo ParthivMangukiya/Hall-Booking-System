@@ -1,4 +1,4 @@
-<?php
+Halls<?php
 session_start();
 error_reporting(0);
 include('includes/config.php');
@@ -19,7 +19,7 @@ else{
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 
-	<title>Car Rental Portal | Admin Dashboard</title>
+	<title>Hall Rental Portal | Admin Dashboard</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -78,17 +78,17 @@ $regusers=$query->rowCount();
 											<div class="panel-body bk-success text-light">
 												<div class="stat-panel text-center">
 												<?php
-$sql1 ="SELECT id from tblvehicles ";
+$sql1 ="SELECT id from tblhalls ";
 $query1 = $dbh -> prepare($sql1);;
 $query1->execute();
 $results1=$query1->fetchAll(PDO::FETCH_OBJ);
-$totalvehicle=$query1->rowCount();
+$totalhall=$query1->rowCount();
 ?>
-													<div class="stat-panel-number h1 "><?php echo htmlentities($totalvehicle);?></div>
-													<div class="stat-panel-title text-uppercase">Listed Vehicles</div>
+													<div class="stat-panel-number h1 "><?php echo htmlentities($totalhall);?></div>
+													<div class="stat-panel-title text-uppercase">Listed Halls</div>
 												</div>
 											</div>
-											<a href="manage-vehicles.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
+											<a href="manage-halls.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
 									<div class="col-md-3">
@@ -119,10 +119,10 @@ $sql3 ="SELECT id from tblcities ";
 $query3= $dbh -> prepare($sql3);
 $query3->execute();
 $results3=$query3->fetchAll(PDO::FETCH_OBJ);
-$brands=$query3->rowCount();
+$cities=$query3->rowCount();
 ?>
-													<div class="stat-panel-number h1 "><?php echo htmlentities($brands);?></div>
-													<div class="stat-panel-title text-uppercase">Listed Brands</div>
+													<div class="stat-panel-number h1 "><?php echo htmlentities($cities);?></div>
+													<div class="stat-panel-title text-uppercase">Listed Cities</div>
 												</div>
 											</div>
 											<a href="manage-cities.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>

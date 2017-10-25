@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+	{
 header('location:index.php');
 }
 else{
@@ -48,8 +48,8 @@ $msg="Booking Successfully Confirmed";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
-	<title>Car Rental Portal |Admin Manage testimonials   </title>
+
+	<title>Hall Rental Portal |Admin Manage testimonials   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -105,14 +105,14 @@ $msg="Booking Successfully Confirmed";
 						<div class="panel panel-default">
 							<div class="panel-heading">Bookings Info</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 										<th>#</th>
 											<th>Name</th>
-											<th>Vehicle</th>
+											<th>Hall</th>
 											<th>From Date</th>
 											<th>To Date</th>
 											<th>Message</th>
@@ -125,7 +125,7 @@ $msg="Booking Successfully Confirmed";
 										<tr>
 										<th>#</th>
 										<th>Name</th>
-											<th>Vehicle</th>
+											<th>Hall</th>
 											<th>From Date</th>
 											<th>To Date</th>
 											<th>Message</th>
@@ -136,7 +136,7 @@ $msg="Booking Successfully Confirmed";
 									</tfoot>
 									<tbody>
 
-									<?php $sql = "SELECT tblusers.FullName,tblcities.CityName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblcities on tblvehicles.VehiclesBrand=tblcities.id  ";
+									<?php $sql = "SELECT tblusers.FullName,tblcities.CityName,tblhalls.HallName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.HallId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblhalls on tblhalls.id=tblbooking.HallId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblcities on tblhalls.CityId=tblcities.id  ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -144,15 +144,15 @@ $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{				?>	
+{				?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->FullName);?></td>
-											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->VehiclesTitle);?></td>
+											<td><a href="edit-hall.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></td>
 											<td><?php echo htmlentities($result->FromDate);?></td>
 											<td><?php echo htmlentities($result->ToDate);?></td>
 											<td><?php echo htmlentities($result->message);?></td>
-											<td><?php 
+											<td><?php
 if($result->Status==0)
 {
 echo htmlentities('Not Confirmed yet');
@@ -172,16 +172,16 @@ echo htmlentities('Confirmed');
 
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
-										
+
 									</tbody>
 								</table>
 
-						
+
 
 							</div>
 						</div>
 
-					
+
 
 					</div>
 				</div>

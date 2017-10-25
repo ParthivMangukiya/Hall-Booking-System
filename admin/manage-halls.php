@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+	{
 header('location:index.php');
 }
 else{
@@ -11,11 +11,11 @@ else{
 if(isset($_REQUEST['del']))
 	{
 $delid=intval($_GET['del']);
-$sql = "delete from tblvehicles SET id=:status WHERE  id=:delid";
+$sql = "delete from tblhalls WHERE  id=:delid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':delid',$delid, PDO::PARAM_STR);
 $query -> execute();
-$msg="Vehicle  record deleted successfully";
+$msg="Hall  record deleted successfully";
 }
 
 
@@ -31,8 +31,8 @@ $msg="Vehicle  record deleted successfully";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
-	<title>Car Rental Portal |Admin Manage Vehicles   </title>
+
+	<title>Hall Rental Portal |Admin Manage Halls   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -82,22 +82,22 @@ $msg="Vehicle  record deleted successfully";
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Manage Vehicles</h2>
+						<h2 class="page-title">Manage Halls</h2>
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Vehicle Details</div>
+							<div class="panel-heading">Hall Details</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 										<th>#</th>
-											<th>Vehicle Title</th>
-											<th>Brand </th>
+											<th>Hall Title</th>
+											<th>City </th>
 											<th>Price Per day</th>
-											<th>Fuel Type</th>
+											<th>Hall Type</th>
 											<th>Model Year</th>
 											<th>Action</th>
 										</tr>
@@ -105,10 +105,10 @@ $msg="Vehicle  record deleted successfully";
 									<tfoot>
 										<tr>
 										<th>#</th>
-										<th>Vehicle Title</th>
-											<th>Brand </th>
+										<th>Hall Title</th>
+											<th>City </th>
 											<th>Price Per day</th>
-											<th>Fuel Type</th>
+											<th>Hall Type</th>
 											<th>Model Year</th>
 											<th>Action</th>
 										</tr>
@@ -116,7 +116,7 @@ $msg="Vehicle  record deleted successfully";
 									</tfoot>
 									<tbody>
 
-<?php $sql = "SELECT tblvehicles.VehiclesTitle,tblcities.CityName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblcities on tblcities.id=tblvehicles.VehiclesBrand";
+<?php $sql = "SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.ModelYear,tblhalls.id from tblhalls join tblcities on tblcities.id=tblhalls.CityId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -124,28 +124,28 @@ $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{				?>	
+{				?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->VehiclesTitle);?></td>
+											<td><?php echo htmlentities($result->HallName);?></td>
 											<td><?php echo htmlentities($result->CityName);?></td>
 											<td><?php echo htmlentities($result->PricePerDay);?></td>
-											<td><?php echo htmlentities($result->FuelType);?></td>
+											<td><?php echo htmlentities($result->HallType);?></td>
 												<td><?php echo htmlentities($result->ModelYear);?></td>
-		<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-vehicles.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+		<td><a href="edit-hall.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="manage-halls.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
-										
+
 									</tbody>
 								</table>
 
-						
+
 
 							</div>
 						</div>
 
-					
+
 
 					</div>
 				</div>

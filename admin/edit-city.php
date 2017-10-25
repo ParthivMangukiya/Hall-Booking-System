@@ -35,7 +35,7 @@ $msg="City updted successfully";
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 
-	<title>Car Rental Portal | Admin Create City</title>
+	<title>Hall Rental Portal | Admin Create City</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">

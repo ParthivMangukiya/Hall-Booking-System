@@ -32,7 +32,7 @@
 <?php }
 else{
 
-echo "Welcome To Car rental portal";
+echo "Welcome To Hall rental portal";
  } ?>
           </div>
         </div>
@@ -93,7 +93,7 @@ foreach($results as $result)
         <ul class="nav navbar-nav">
           <li><a href="index.php">Home</a>    </li>
           <li><a href="page.php?type=aboutus">About Us</a></li>
-          <li><a href="car-listing.php">Car Listing</a>
+          <li><a href="car-listing.php">Hall Listing</a>
         </ul>
       </div>
     </div>

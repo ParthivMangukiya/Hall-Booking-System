@@ -15,7 +15,7 @@ else{
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>CarForYou - Responsive Car Dealer HTML5 Template</title>
+<title>HallForYou - Responsive Hall Dealer HTML5 Template</title>
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
@@ -118,7 +118,7 @@ foreach($results as $result)
             <ul class="vehicle_listing">
 <?php 
 $useremail=$_SESSION['login'];
- $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblcities.CityName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblcities on tblcities.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail";
+ $sql = "SELECT tblhalls.Vimage1 as Vimage1,tblhalls.HallName,tblhalls.id as vid,tblcities.CityName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  from tblbooking join tblhalls on tblbooking.HallId=tblhalls.id join tblcities on tblcities.id=tblhalls.CityId where tblbooking.userEmail=:useremail";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':useremail', $useremail, PDO::PARAM_STR);
 $query->execute();
@@ -130,9 +130,9 @@ foreach($results as $result)
 {  ?>
 
 <li>
-                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
+                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
                 <div class="vehicle_title">
-                  <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
+                  <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>To Date:</b> <?php echo htmlentities($result->ToDate);?></p>
                 </div>
                 <?php if($result->Status==1)

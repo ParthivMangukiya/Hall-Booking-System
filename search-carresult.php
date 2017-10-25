@@ -12,7 +12,7 @@ error_reporting(0);
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>Car Rental Portal | Car Listing</title>
+<title>Hall Rental Portal | Hall Listing</title>
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
@@ -59,11 +59,11 @@ error_reporting(0);
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">
-        <h1>Car Listing</h1>
+        <h1>Hall Listing</h1>
       </div>
       <ul class="coustom-breadcrumb">
         <li><a href="#">Home</a></li>
-        <li>Car Listing</li>
+        <li>Hall Listing</li>
       </ul>
     </div>
   </div>
@@ -82,11 +82,11 @@ error_reporting(0);
 <?php 
 //Query for Listing count
 $brand=$_POST['brand'];
-$fueltype=$_POST['fueltype'];
-$sql = "SELECT id from tblvehicles where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype";
+$halltype=$_POST['halltype'];
+$sql = "SELECT id from tblhalls where tblhalls.CityId=:brand and tblhalls.HallType=:halltype";
 $query = $dbh -> prepare($sql);
 $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-$query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
+$query -> bindParam(':halltype',$halltype, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=$query->rowCount();
@@ -97,10 +97,10 @@ $cnt=$query->rowCount();
 
 <?php 
 
-$sql = "SELECT tblvehicles.*,tblcities.CityName,tblcities.id as bid  from tblvehicles join tblcities on tblcities.id=tblvehicles.VehiclesBrand where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype";
+$sql = "SELECT tblhalls.*,tblcities.CityName,tblcities.id as bid  from tblhalls join tblcities on tblcities.id=tblhalls.CityId where tblhalls.CityId=:brand and tblhalls.HallType=:halltype";
 $query = $dbh -> prepare($sql);
 $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-$query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
+$query -> bindParam(':halltype',$halltype, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -109,15 +109,15 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {  ?>
         <div class="product-listing-m gray-bg">
-          <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="Image" /> </a> 
+          <div class="product-listing-img"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="Image" /> </a> 
           </div>
           <div class="product-listing-content">
-            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h5>
+            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h5>
             <p class="list-price">$<?php echo htmlentities($result->PricePerDay);?> Per Day</p>
             <ul>
-              <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity);?> seats</li>
+              <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> seats</li>
               <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
-              <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType);?></li>
+              <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->HallType);?></li>
             </ul>
             <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
           </div>
@@ -129,7 +129,7 @@ foreach($results as $result)
       <aside class="col-md-3 col-md-pull-9">
         <div class="sidebar_widget">
           <div class="widget_heading">
-            <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your  Car </h5>
+            <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your  Hall </h5>
           </div>
           <div class="sidebar_filter">
             <form action="#" method="get">
@@ -173,7 +173,7 @@ foreach($results as $result)
           </div>
           <div class="recent_addedcars">
             <ul>
-<?php $sql = "SELECT tblvehicles.*,tblcities.CityName,tblcities.id as bid  from tblvehicles join tblcities on tblcities.id=tblvehicles.VehiclesBrand order by id desc limit 4";
+<?php $sql = "SELECT tblhalls.*,tblcities.CityName,tblcities.id as bid  from tblhalls join tblcities on tblcities.id=tblhalls.CityId order by id desc limit 4";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -184,8 +184,8 @@ foreach($results as $result)
 {  ?>
 
               <li class="gray-bg">
-                <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
-                <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a>
+                <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
+                <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a>
                   <p class="widget_price">$<?php echo htmlentities($result->PricePerDay);?> Per Day</p>
                 </div>
               </li>

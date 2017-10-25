@@ -10,13 +10,13 @@ else{
 
 if(isset($_POST['submit']))
   {
-$vehicletitle=$_POST['vehicletitle'];
-$brand=$_POST['brandname'];
-$vehicleoverview=$_POST['vehicalorcview'];
+$hallname=$_POST['hallname'];
+$brand=$_POST['cityname'];
+$halloverview=$_POST['hallview'];
 $priceperday=$_POST['priceperday'];
-$fueltype=$_POST['fueltype'];
+$halltype=$_POST['halltype'];
 $modelyear=$_POST['modelyear'];
-$seatingcapacity=$_POST['seatingcapacity'];
+$capacity=$_POST['capacity'];
 $vimage1=$_FILES["img1"]["name"];
 $vimage2=$_FILES["img2"]["name"];
 $vimage3=$_FILES["img3"]["name"];
@@ -34,21 +34,21 @@ $cdplayer=$_POST['cdplayer'];
 $centrallocking=$_POST['centrallocking'];
 $crashcensor=$_POST['crashcensor'];
 $leatherseats=$_POST['leatherseats'];
-move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicleimages/".$_FILES["img1"]["name"]);
-move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicleimages/".$_FILES["img2"]["name"]);
-move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img3"]["name"]);
-move_uploaded_file($_FILES["img4"]["tmp_name"],"img/vehicleimages/".$_FILES["img4"]["name"]);
-move_uploaded_file($_FILES["img5"]["tmp_name"],"img/vehicleimages/".$_FILES["img5"]["name"]);
+move_uploaded_file($_FILES["img1"]["tmp_name"],"img/hallimages/".$_FILES["img1"]["name"]);
+move_uploaded_file($_FILES["img2"]["tmp_name"],"img/hallimages/".$_FILES["img2"]["name"]);
+move_uploaded_file($_FILES["img3"]["tmp_name"],"img/hallimages/".$_FILES["img3"]["name"]);
+move_uploaded_file($_FILES["img4"]["tmp_name"],"img/hallimages/".$_FILES["img4"]["name"]);
+move_uploaded_file($_FILES["img5"]["tmp_name"],"img/hallimages/".$_FILES["img5"]["name"]);
 
-$sql="INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:vehicletitle,:brand,:vehicleoverview,:priceperday,:fueltype,:modelyear,:seatingcapacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
+$sql="INSERT INTO tblhalls(HallName,CityId,HallOverview,PricePerDay,HallType,ModelYear,Capacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:hallname,:brand,:halloverview,:priceperday,:halltype,:modelyear,:capacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
 $query = $dbh->prepare($sql);
-$query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
+$query->bindParam(':hallname',$hallname,PDO::PARAM_STR);
 $query->bindParam(':brand',$brand,PDO::PARAM_STR);
-$query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
+$query->bindParam(':halloverview',$halloverview,PDO::PARAM_STR);
 $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
-$query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
+$query->bindParam(':halltype',$halltype,PDO::PARAM_STR);
 $query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
-$query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
+$query->bindParam(':capacity',$capacity,PDO::PARAM_STR);
 $query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
 $query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
 $query->bindParam(':vimage3',$vimage3,PDO::PARAM_STR);
@@ -70,7 +70,7 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$msg="Vehicle posted successfully";
+$msg="Hall posted successfully";
 }
 else
 {
@@ -92,7 +92,7 @@ $error="Something went wrong. Please try again";
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 
-	<title>Car Rental Portal | Admin Post Vehicle</title>
+	<title>Hall Rental Portal | Admin Post Hall</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -141,7 +141,7 @@ $error="Something went wrong. Please try again";
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Post A Vehicle</h2>
+						<h2 class="page-title">Post A Hall</h2>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -153,13 +153,13 @@ $error="Something went wrong. Please try again";
 									<div class="panel-body">
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
 <div class="form-group">
-<label class="col-sm-2 control-label">Vehicle Title<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Hall Title<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<input type="text" name="vehicletitle" class="form-control" required>
+<input type="text" name="hallname" class="form-control" required>
 </div>
-<label class="col-sm-2 control-label">Select Brand<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Select City<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="brandname" required>
+<select class="selectpicker" name="cityname" required>
 <option value=""> Select </option>
 <?php $ret="select id,CityName from tblcities";
 $query= $dbh -> prepare($ret);
@@ -180,9 +180,9 @@ foreach($results as $result)
 
 <div class="hr-dashed"></div>
 <div class="form-group">
-<label class="col-sm-2 control-label">Vehical Overview<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Hall Overview<span style="color:red">*</span></label>
 <div class="col-sm-10">
-<textarea class="form-control" name="vehicalorcview" rows="3" required></textarea>
+<textarea class="form-control" name="hallview" rows="3" required></textarea>
 </div>
 </div>
 
@@ -191,9 +191,9 @@ foreach($results as $result)
 <div class="col-sm-4">
 <input type="text" name="priceperday" class="form-control" required>
 </div>
-<label class="col-sm-2 control-label">Select Fuel Type<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Select Hall Type<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="fueltype" required>
+<select class="selectpicker" name="halltype" required>
 <option value=""> Select </option>
 
 <option value="Petrol">Petrol</option>
@@ -209,9 +209,9 @@ foreach($results as $result)
 <div class="col-sm-4">
 <input type="text" name="modelyear" class="form-control" required>
 </div>
-<label class="col-sm-2 control-label">Seating Capacity<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Capacity<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<input type="text" name="seatingcapacity" class="form-control" required>
+<input type="text" name="capacity" class="form-control" required>
 </div>
 </div>
 <div class="hr-dashed"></div>

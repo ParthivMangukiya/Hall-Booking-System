@@ -3,17 +3,17 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+	{
 header('location:index.php');
 }
 else{
-// Code for change password	
+// Code for change password
 if(isset($_POST['update']))
 {
 $vimage=$_FILES["img3"]["name"];
 $id=intval($_GET['imgid']);
-move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img3"]["name"]);
-$sql="update tblvehicles set Vimage3=:vimage where id=:id";
+move_uploaded_file($_FILES["img3"]["tmp_name"],"img/hallimages/".$_FILES["img3"]["name"]);
+$sql="update tblhalls set Vimage3=:vimage where id=:id";
 $query = $dbh->prepare($sql);
 $query->bindParam(':vimage',$vimage,PDO::PARAM_STR);
 $query->bindParam(':id',$id,PDO::PARAM_STR);
@@ -36,8 +36,8 @@ $msg="Image updated successfully";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
-	<title>Car Rental Portal | Admin Update Image 3</title>
+
+	<title>Hall Rental Portal | Admin Update Image 3</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -86,27 +86,27 @@ $msg="Image updated successfully";
 
 				<div class="row">
 					<div class="col-md-12">
-					
-						<h2 class="page-title">Vehicle Image 3 </h2>
+
+						<h2 class="page-title">Hall Image 3 </h2>
 
 						<div class="row">
 							<div class="col-md-10">
 								<div class="panel panel-default">
-									<div class="panel-heading">Vehicle Image 3 Details</div>
+									<div class="panel-heading">Hall Image 3 Details</div>
 									<div class="panel-body">
 										<form method="post" class="form-horizontal" enctype="multipart/form-data">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+
+
+  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
 
 
 <div class="form-group">
 												<label class="col-sm-4 control-label">Current Image3</label>
-<?php 
+<?php
 $id=intval($_GET['imgid']);
-$sql ="SELECT Vimage3 from tblvehicles where tblvehicles.id=:id";
+$sql ="SELECT Vimage3 from tblhalls where tblhalls.id=:id";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':id', $id, PDO::PARAM_STR);
 $query->execute();
@@ -118,7 +118,7 @@ foreach($results as $result)
 {	?>
 
 <div class="col-sm-8">
-<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage3);?>" width="300" height="200" style="border:solid 1px #000">
+<img src="img/hallimages/<?php echo htmlentities($result->Vimage3);?>" width="300" height="200" style="border:solid 1px #000">
 </div>
 <?php }}?>
 </div>
@@ -130,13 +130,13 @@ foreach($results as $result)
 												</div>
 											</div>
 											<div class="hr-dashed"></div>
-											
-										
-								
-											
+
+
+
+
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
-								
+
 													<button class="btn btn-primary" name="update" type="submit">Update</button>
 												</div>
 											</div>
@@ -146,15 +146,15 @@ foreach($results as $result)
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
-						
-					
+
+
 
 					</div>
 				</div>
-				
-			
+
+
 			</div>
 		</div>
 	</div>

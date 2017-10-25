@@ -10,11 +10,11 @@
 <li><a href="manage-cities.php">Manage Cities</a></li>
 </ul>
 </li>
-
-<li><a href="#"><i class="fa fa-sitemap"></i> Vehicles</a>
+	
+<li><a href="#"><i class="fa fa-sitemap"></i> Halls</a>
 					<ul>
-						<li><a href="post-avehical.php">Post a Vehicle</a></li>
-						<li><a href="manage-vehicles.php">Manage Vehicles</a></li>
+						<li><a href="post-hall.php">Post a Hall</a></li>
+						<li><a href="manage-halls.php">Manage Halls</a></li>
 					</ul>
 				</li>
 				<li><a href="manage-bookings.php"><i class="fa fa-users"></i> Manage Booking</a></li>

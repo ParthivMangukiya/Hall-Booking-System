@@ -3,20 +3,20 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['alogin'])==0)
-	{	
+	{
 header('location:index.php');
 }
-else{ 
+else{
 
 if(isset($_POST['submit']))
   {
-$vehicletitle=$_POST['vehicletitle'];
-$brand=$_POST['brandname'];
-$vehicleoverview=$_POST['vehicalorcview'];
+$hallname=$_POST['hallname'];
+$city=$_POST['cityname'];
+$halloverview=$_POST['hallview'];
 $priceperday=$_POST['priceperday'];
-$fueltype=$_POST['fueltype'];
+$halltype=$_POST['halltype'];
 $modelyear=$_POST['modelyear'];
-$seatingcapacity=$_POST['seatingcapacity'];
+$capacity=$_POST['capacity'];
 $airconditioner=$_POST['airconditioner'];
 $powerdoorlocks=$_POST['powerdoorlocks'];
 $antilockbrakingsys=$_POST['antilockbrakingsys'];
@@ -31,15 +31,15 @@ $crashcensor=$_POST['crashcensor'];
 $leatherseats=$_POST['leatherseats'];
 $id=intval($_GET['id']);
 
-$sql="update tblvehicles set VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
+$sql="update tblhalls set HallName=:hallname,CityId=:city,HallOverview=:halloverview,PricePerDay=:priceperday,HallType=:halltype,ModelYear=:modelyear,Capacity=:capacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
 $query = $dbh->prepare($sql);
-$query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
-$query->bindParam(':brand',$brand,PDO::PARAM_STR);
-$query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
+$query->bindParam(':hallname',$hallname,PDO::PARAM_STR);
+$query->bindParam(':city',$city,PDO::PARAM_STR);
+$query->bindParam(':halloverview',$halloverview,PDO::PARAM_STR);
 $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
-$query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
+$query->bindParam(':halltype',$halltype,PDO::PARAM_STR);
 $query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
-$query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
+$query->bindParam(':capacity',$capacity,PDO::PARAM_STR);
 $query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
 $query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
 $query->bindParam(':antilockbrakingsys',$antilockbrakingsys,PDO::PARAM_STR);
@@ -72,8 +72,8 @@ $msg="Data updated successfully";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
-	<title>Car Rental Portal | Admin Edit Vehicle Info</title>
+
+	<title>Hall Rental Portal | Admin Edit Hall Info</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -120,8 +120,8 @@ $msg="Data updated successfully";
 
 				<div class="row">
 					<div class="col-md-12">
-					
-						<h2 class="page-title">Edit Vehicle</h2>
+
+						<h2 class="page-title">Edit Hall</h2>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -129,9 +129,9 @@ $msg="Data updated successfully";
 									<div class="panel-heading">Basic Info</div>
 									<div class="panel-body">
 <?php if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-<?php 
+<?php
 $id=intval($_GET['id']);
-$sql ="SELECT tblvehicles.*,tblcities.CityName,tblcities.id as bid from tblvehicles join tblcities on tblcities.id=tblvehicles.VehiclesBrand where tblvehicles.id=:id";
+$sql ="SELECT tblhalls.*,tblcities.CityName,tblcities.id as bid from tblhalls join tblcities on tblcities.id=tblhalls.CityId where tblhalls.id=:id";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':id', $id, PDO::PARAM_STR);
 $query->execute();
@@ -144,13 +144,13 @@ foreach($results as $result)
 
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
 <div class="form-group">
-<label class="col-sm-2 control-label">Vehicle Title<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Hall Title<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<input type="text" name="vehicletitle" class="form-control" value="<?php echo htmlentities($result->VehiclesTitle)?>" required>
+<input type="text" name="hallname" class="form-control" value="<?php echo htmlentities($result->HallName)?>" required>
 </div>
-<label class="col-sm-2 control-label">Select Brand<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Select City<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="brandname" required>
+<select class="selectpicker" name="cityname" required>
 <option value="<?php echo htmlentities($result->bid);?>"><?php echo htmlentities($bdname=$result->CityName); ?> </option>
 <?php $ret="select id,CityName from tblcities";
 $query= $dbh -> prepare($ret);
@@ -172,12 +172,12 @@ continue;
 </select>
 </div>
 </div>
-											
+
 <div class="hr-dashed"></div>
 <div class="form-group">
-<label class="col-sm-2 control-label">Vehical Overview<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Hall Overview<span style="color:red">*</span></label>
 <div class="col-sm-10">
-<textarea class="form-control" name="vehicalorcview" rows="3" required><?php echo htmlentities($result->VehiclesOverview);?></textarea>
+<textarea class="form-control" name="hallview" rows="3" required><?php echo htmlentities($result->HallOverview);?></textarea>
 </div>
 </div>
 
@@ -186,10 +186,10 @@ continue;
 <div class="col-sm-4">
 <input type="text" name="priceperday" class="form-control" value="<?php echo htmlentities($result->PricePerDay);?>" required>
 </div>
-<label class="col-sm-2 control-label">Select Fuel Type<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Select Hall Type<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<select class="selectpicker" name="fueltype" required>
-<option value="<?php echo htmlentities($results->FuelType);?>"> <?php echo htmlentities($result->FuelType);?> </option>
+<select class="selectpicker" name="halltype" required>
+<option value="<?php echo htmlentities($results->HallType);?>"> <?php echo htmlentities($result->HallType);?> </option>
 
 <option value="Petrol">Petrol</option>
 <option value="Diesel">Diesel</option>
@@ -204,30 +204,30 @@ continue;
 <div class="col-sm-4">
 <input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result->ModelYear);?>" required>
 </div>
-<label class="col-sm-2 control-label">Seating Capacity<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Capacity<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<input type="text" name="seatingcapacity" class="form-control" value="<?php echo htmlentities($result->SeatingCapacity);?>" required>
+<input type="text" name="capacity" class="form-control" value="<?php echo htmlentities($result->Capacity);?>" required>
 </div>
 </div>
-<div class="hr-dashed"></div>								
+<div class="hr-dashed"></div>
 <div class="form-group">
 <div class="col-sm-12">
-<h4><b>Vehicle Images</b></h4>
+<h4><b>Hall Images</b></h4>
 </div>
 </div>
 
 
 <div class="form-group">
 <div class="col-sm-4">
-Image 1 <img src="img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" width="300" height="200" style="border:solid 1px #000">
+Image 1 <img src="img/hallimages/<?php echo htmlentities($result->Vimage1);?>" width="300" height="200" style="border:solid 1px #000">
 <a href="changeimage1.php?imgid=<?php echo htmlentities($result->id)?>">Change Image 1</a>
 </div>
 <div class="col-sm-4">
-Image 2<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage2);?>" width="300" height="200" style="border:solid 1px #000">
+Image 2<img src="img/hallimages/<?php echo htmlentities($result->Vimage2);?>" width="300" height="200" style="border:solid 1px #000">
 <a href="changeimage2.php?imgid=<?php echo htmlentities($result->id)?>">Change Image 2</a>
 </div>
 <div class="col-sm-4">
-Image 3<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage3);?>" width="300" height="200" style="border:solid 1px #000">
+Image 3<img src="img/hallimages/<?php echo htmlentities($result->Vimage3);?>" width="300" height="200" style="border:solid 1px #000">
 <a href="changeimage3.php?imgid=<?php echo htmlentities($result->id)?>">Change Image 3</a>
 </div>
 </div>
@@ -235,7 +235,7 @@ Image 3<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage3);?>"
 
 <div class="form-group">
 <div class="col-sm-4">
-Image 4<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage4);?>" width="300" height="200" style="border:solid 1px #000">
+Image 4<img src="img/hallimages/<?php echo htmlentities($result->Vimage4);?>" width="300" height="200" style="border:solid 1px #000">
 <a href="changeimage4.php?imgid=<?php echo htmlentities($result->id)?>">Change Image 4</a>
 </div>
 <div class="col-sm-4">
@@ -244,19 +244,19 @@ Image 5
 {
 echo htmlentities("File not available");
 } else {?>
-<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage5);?>" width="300" height="200" style="border:solid 1px #000">
+<img src="img/hallimages/<?php echo htmlentities($result->Vimage5);?>" width="300" height="200" style="border:solid 1px #000">
 <a href="changeimage5.php?imgid=<?php echo htmlentities($result->id)?>">Change Image 5</a>
 <?php } ?>
 </div>
 
 </div>
-<div class="hr-dashed"></div>									
+<div class="hr-dashed"></div>
 </div>
 </div>
 </div>
 </div>
-	
-							
+
+
 
 <div class="row">
 <div class="col-md-12">
@@ -455,7 +455,7 @@ echo htmlentities("File not available");
 
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-2" >
-													
+
 													<button class="btn btn-primary" name="submit" type="submit" style="margin-top:4%">Save changes</button>
 												</div>
 											</div>
@@ -465,13 +465,13 @@ echo htmlentities("File not available");
 								</div>
 							</div>
 						</div>
-						
-					
+
+
 
 					</div>
 				</div>
-				
-			
+
+
 
 			</div>
 		</div>
