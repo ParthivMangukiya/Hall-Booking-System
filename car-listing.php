@@ -146,15 +146,15 @@ foreach($results as $result)
               </div>
               <div class="form-group select">
                 <select class="form-control" name="fueltype">
-                  <option>Select Fuel Type</option>
-<option value="Petrol">Petrol</option>
-<option value="Diesel">Diesel</option>
-<option value="CNG">CNG</option>
+                  <option>Hall Type</option>
+<option value="Petrol">Seminar Hall</option>
+<option value="Diesel">Marriage Hall</option>
+<option value="CNG">Birthday Party Hall</option>
                 </select>
               </div>
              
               <div class="form-group">
-                <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Car</button>
+                <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Hall</button>
               </div>
             </form>
           </div>
