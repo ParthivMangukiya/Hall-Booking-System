@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include('includes/config.php');
 error_reporting(0);
@@ -35,7 +35,7 @@ error_reporting(0);
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-        
+
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
@@ -46,13 +46,10 @@ error_reporting(0);
 </head>
 <body>
 
-<!-- Start Switcher -->
-<?php include('includes/colorswitcher.php');?>
-<!-- /Switcher -->  
 
-<!--Header--> 
+<!--Header-->
 <?php include('includes/header.php');?>
-<!-- /Header --> 
+<!-- /Header -->
 
 <!--Page Header-->
 <section class="page-header listing_page">
@@ -70,7 +67,7 @@ error_reporting(0);
   <!-- Dark Overlay-->
   <div class="dark-overlay"></div>
 </section>
-<!-- /Page Header--> 
+<!-- /Page Header-->
 
 <!--Listing-->
 <section class="listing-page">
@@ -79,14 +76,11 @@ error_reporting(0);
       <div class="col-md-9 col-md-push-3">
         <div class="result-sorting-wrapper">
           <div class="sorting-count">
-<?php 
+<?php
 //Query for Listing count
-$brand=$_POST['brand'];
-$halltype=$_POST['halltype'];
-$sql = "SELECT id from tblhalls where tblhalls.CityId=:brand and tblhalls.HallType=:halltype";
+$sql = "SELECT id from tblhalls";
 $query = $dbh -> prepare($sql);
-$query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-$query -> bindParam(':halltype',$halltype, PDO::PARAM_STR);
+$query->bindParam(':vhid',$vhid, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=$query->rowCount();
@@ -95,12 +89,8 @@ $cnt=$query->rowCount();
 </div>
 </div>
 
-<?php 
-
-$sql = "SELECT tblhalls.*,tblcities.CityName,tblcities.id as bid  from tblhalls join tblcities on tblcities.id=tblhalls.CityId where tblhalls.CityId=:brand and tblhalls.HallType=:halltype";
+<?php $sql = "SELECT tblhalls.*,tblcities.CityName,tblcities.id as bid  from tblhalls join tblcities on tblcities.id=tblhalls.CityId";
 $query = $dbh -> prepare($sql);
-$query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-$query -> bindParam(':halltype',$halltype, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
@@ -109,22 +99,22 @@ if($query->rowCount() > 0)
 foreach($results as $result)
 {  ?>
         <div class="product-listing-m gray-bg">
-          <div class="product-listing-img"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="Image" /> </a> 
+          <div class="product-listing-img"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="Image" /> </a>
           </div>
           <div class="product-listing-content">
-            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h5>
+            <h5><a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h5>
             <p class="list-price">$<?php echo htmlentities($result->PricePerDay);?> Per Day</p>
             <ul>
-              <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> seats</li>
-              <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
+              <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->Capacity);?> capacity</li>
+              <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->Area);?> Area</li>
               <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->HallType);?></li>
             </ul>
-            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+            <a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
           </div>
         </div>
       <?php }} ?>
          </div>
-      
+
       <!--Side-Bar-->
       <aside class="col-md-3 col-md-pull-9">
         <div class="sidebar_widget">
@@ -132,10 +122,10 @@ foreach($results as $result)
             <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your  Hall </h5>
           </div>
           <div class="sidebar_filter">
-            <form action="#" method="get">
+            <form action="search-hallresult.php" method="post">
               <div class="form-group select">
-                <select class="form-control">
-                  <option>Select Brand</option>
+                <select class="form-control" name="city">
+                  <option>Select City</option>
 
                   <?php $sql = "SELECT * from  tblcities ";
 $query = $dbh -> prepare($sql);
@@ -145,21 +135,21 @@ $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{       ?>  
+{       ?>
 <option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?></option>
 <?php }} ?>
-                 
+
                 </select>
               </div>
               <div class="form-group select">
-                <select class="form-control">
+                <select class="form-control" name="halltype">
                   <option>Hall Type</option>
 <option value="Petrol">Seminar Hall</option>
 <option value="Diesel">Marriage Hall</option>
 <option value="CNG">Birthday Party Hall</option>
                 </select>
               </div>
-             
+
               <div class="form-group">
                 <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Hall</button>
               </div>
@@ -169,7 +159,7 @@ foreach($results as $result)
 
         <div class="sidebar_widget">
           <div class="widget_heading">
-            <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Cars</h5>
+            <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Halls</h5>
           </div>
           <div class="recent_addedcars">
             <ul>
@@ -184,53 +174,53 @@ foreach($results as $result)
 {  ?>
 
               <li class="gray-bg">
-                <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
-                <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a>
+                <div class="recent_post_img"> <a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
+                <div class="recent_post_title"> <a href="hall-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a>
                   <p class="widget_price">$<?php echo htmlentities($result->PricePerDay);?> Per Day</p>
                 </div>
               </li>
               <?php }} ?>
-              
+
             </ul>
           </div>
         </div>
       </aside>
-      <!--/Side-Bar--> 
+      <!--/Side-Bar-->
     </div>
   </div>
 </section>
-<!-- /Listing--> 
+<!-- /Listing-->
 
 <!--Footer -->
 <?php include('includes/footer.php');?>
-<!-- /Footer--> 
+<!-- /Footer-->
 
 <!--Back to top-->
 <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-<!--/Back to top--> 
+<!--/Back to top-->
 
 <!--Login-Form -->
 <?php include('includes/login.php');?>
-<!--/Login-Form --> 
+<!--/Login-Form -->
 
 <!--Register-Form -->
 <?php include('includes/registration.php');?>
 
-<!--/Register-Form --> 
+<!--/Register-Form -->
 
 <!--Forgot-password-Form -->
 <?php include('includes/forgotpassword.php');?>
 
-<!-- Scripts --> 
+<!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script> 
-<script src="assets/js/interface.js"></script> 
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/interface.js"></script>
 <!--Switcher-->
 <script src="assets/switcher/js/switcher.js"></script>
-<!--bootstrap-slider-JS--> 
-<script src="assets/js/bootstrap-slider.min.js"></script> 
-<!--Slider-JS--> 
-<script src="assets/js/slick.min.js"></script> 
+<!--bootstrap-slider-JS-->
+<script src="assets/js/bootstrap-slider.min.js"></script>
+<!--Slider-JS-->
+<script src="assets/js/slick.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
 
 </body>

@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['login'])==0)
-  { 
+  {
 header('location:index.php');
 }
 else{
@@ -38,7 +38,7 @@ else{
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
 		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-        
+
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
@@ -52,18 +52,14 @@ else{
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->  
+<![endif]-->
 </head>
 <body>
 
-<!-- Start Switcher -->
-<?php include('includes/colorswitcher.php');?>
-<!-- /Switcher -->  
-        
 <!--Header-->
 <?php include('includes/header.php');?>
 <!--Page Header-->
-<!-- /Header --> 
+<!-- /Header -->
 
 <!--Page Header-->
 <section class="page-header profile_page">
@@ -81,9 +77,9 @@ else{
   <!-- Dark Overlay-->
   <div class="dark-overlay"></div>
 </section>
-<!-- /Page Header--> 
+<!-- /Page Header-->
 
-<?php 
+<?php
 $useremail=$_SESSION['login'];
 $sql = "SELECT * from tblusers where EmailId=:useremail";
 $query = $dbh -> prepare($sql);
@@ -110,13 +106,13 @@ foreach($results as $result)
     <div class="row">
       <div class="col-md-3 col-sm-3">
        <?php include('includes/sidebar.php');?>
-   
+
       <div class="col-md-6 col-sm-8">
         <div class="profile_wrap">
           <h5 class="uppercase underline">My Booikngs </h5>
           <div class="my_vehicles_list">
             <ul class="vehicle_listing">
-<?php 
+<?php
 $useremail=$_SESSION['login'];
  $sql = "SELECT tblhalls.Vimage1 as Vimage1,tblhalls.HallName,tblhalls.id as vid,tblcities.CityName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  from tblbooking join tblhalls on tblbooking.HallId=tblhalls.id join tblcities on tblcities.id=tblhalls.CityId where tblbooking.userEmail=:useremail";
 $query = $dbh -> prepare($sql);
@@ -130,9 +126,9 @@ foreach($results as $result)
 {  ?>
 
 <li>
-                <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
+                <div class="vehicle_img"> <a href="hall-details.php?vhid=<?php echo htmlentities($result->vid);?>""><img src="admin/img/hallimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
                 <div class="vehicle_title">
-                  <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h6>
+                  <h6><a href="hall-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->CityName);?> , <?php echo htmlentities($result->HallName);?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>To Date:</b> <?php echo htmlentities($result->ToDate);?></p>
                 </div>
                 <?php if($result->Status==1)
@@ -145,7 +141,7 @@ foreach($results as $result)
  <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Cancelled</a>
             <div class="clearfix"></div>
         </div>
-             
+
 
 
                 <?php } else { ?>
@@ -156,8 +152,8 @@ foreach($results as $result)
        <div style="float: left"><p><b>Message:</b> <?php echo htmlentities($result->message);?> </p></div>
               </li>
               <?php }} ?>
-             
-         
+
+
             </ul>
           </div>
         </div>
@@ -165,19 +161,19 @@ foreach($results as $result)
     </div>
   </div>
 </section>
-<!--/my-vehicles--> 
+<!--/my-vehicles-->
 <?php include('includes/footer.php');?>
 
-<!-- Scripts --> 
+<!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script> 
-<script src="assets/js/interface.js"></script> 
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/interface.js"></script>
 <!--Switcher-->
 <script src="assets/switcher/js/switcher.js"></script>
-<!--bootstrap-slider-JS--> 
-<script src="assets/js/bootstrap-slider.min.js"></script> 
-<!--Slider-JS--> 
-<script src="assets/js/slick.min.js"></script> 
+<!--bootstrap-slider-JS-->
+<script src="assets/js/bootstrap-slider.min.js"></script>
+<!--Slider-JS-->
+<script src="assets/js/slick.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
 </body>
 </html>

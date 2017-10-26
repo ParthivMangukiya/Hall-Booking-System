@@ -15,7 +15,7 @@ $city=$_POST['cityname'];
 $halloverview=$_POST['hallview'];
 $priceperday=$_POST['priceperday'];
 $halltype=$_POST['halltype'];
-$modelyear=$_POST['modelyear'];
+$area=$_POST['area'];
 $capacity=$_POST['capacity'];
 $airconditioner=$_POST['airconditioner'];
 $powerdoorlocks=$_POST['powerdoorlocks'];
@@ -31,14 +31,14 @@ $crashcensor=$_POST['crashcensor'];
 $leatherseats=$_POST['leatherseats'];
 $id=intval($_GET['id']);
 
-$sql="update tblhalls set HallName=:hallname,CityId=:city,HallOverview=:halloverview,PricePerDay=:priceperday,HallType=:halltype,ModelYear=:modelyear,Capacity=:capacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
+$sql="update tblhalls set HallName=:hallname,CityId=:city,HallOverview=:halloverview,PricePerDay=:priceperday,HallType=:halltype,Area=:area,Capacity=:capacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
 $query = $dbh->prepare($sql);
 $query->bindParam(':hallname',$hallname,PDO::PARAM_STR);
 $query->bindParam(':city',$city,PDO::PARAM_STR);
 $query->bindParam(':halloverview',$halloverview,PDO::PARAM_STR);
 $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
 $query->bindParam(':halltype',$halltype,PDO::PARAM_STR);
-$query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
+$query->bindParam(':area',$area,PDO::PARAM_STR);
 $query->bindParam(':capacity',$capacity,PDO::PARAM_STR);
 $query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
 $query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
@@ -200,9 +200,9 @@ continue;
 
 
 <div class="form-group">
-<label class="col-sm-2 control-label">Model Year<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Area<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result->ModelYear);?>" required>
+<input type="text" name="area" class="form-control" value="<?php echo htmlentities($result->Area);?>" required>
 </div>
 <label class="col-sm-2 control-label">Capacity<span style="color:red">*</span></label>
 <div class="col-sm-4">
@@ -261,7 +261,7 @@ echo htmlentities("File not available");
 <div class="row">
 <div class="col-md-12">
 <div class="panel panel-default">
-<div class="panel-heading">Accessories</div>
+<div class="panel-heading">Facilities</div>
 <div class="panel-body">
 
 

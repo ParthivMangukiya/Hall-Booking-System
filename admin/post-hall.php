@@ -11,11 +11,11 @@ else{
 if(isset($_POST['submit']))
   {
 $hallname=$_POST['hallname'];
-$brand=$_POST['cityname'];
+$city=$_POST['cityname'];
 $halloverview=$_POST['hallview'];
 $priceperday=$_POST['priceperday'];
 $halltype=$_POST['halltype'];
-$modelyear=$_POST['modelyear'];
+$area=$_POST['area'];
 $capacity=$_POST['capacity'];
 $vimage1=$_FILES["img1"]["name"];
 $vimage2=$_FILES["img2"]["name"];
@@ -40,14 +40,14 @@ move_uploaded_file($_FILES["img3"]["tmp_name"],"img/hallimages/".$_FILES["img3"]
 move_uploaded_file($_FILES["img4"]["tmp_name"],"img/hallimages/".$_FILES["img4"]["name"]);
 move_uploaded_file($_FILES["img5"]["tmp_name"],"img/hallimages/".$_FILES["img5"]["name"]);
 
-$sql="INSERT INTO tblhalls(HallName,CityId,HallOverview,PricePerDay,HallType,ModelYear,Capacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:hallname,:brand,:halloverview,:priceperday,:halltype,:modelyear,:capacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
+$sql="INSERT INTO tblhalls(HallName,CityId,HallOverview,PricePerDay,HallType,Area,Capacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:hallname,:city,:halloverview,:priceperday,:halltype,:area,:capacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':hallname',$hallname,PDO::PARAM_STR);
-$query->bindParam(':brand',$brand,PDO::PARAM_STR);
+$query->bindParam(':city',$city,PDO::PARAM_STR);
 $query->bindParam(':halloverview',$halloverview,PDO::PARAM_STR);
 $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
 $query->bindParam(':halltype',$halltype,PDO::PARAM_STR);
-$query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
+$query->bindParam(':area',$area,PDO::PARAM_STR);
 $query->bindParam(':capacity',$capacity,PDO::PARAM_STR);
 $query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
 $query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
@@ -205,9 +205,9 @@ foreach($results as $result)
 
 
 <div class="form-group">
-<label class="col-sm-2 control-label">Model Year<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Area<span style="color:red">*</span></label>
 <div class="col-sm-4">
-<input type="text" name="modelyear" class="form-control" required>
+<input type="text" name="area" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Capacity<span style="color:red">*</span></label>
 <div class="col-sm-4">
@@ -256,7 +256,7 @@ Image 5<input type="file" name="img5">
 <div class="row">
 <div class="col-md-12">
 <div class="panel panel-default">
-<div class="panel-heading">Accessories</div>
+<div class="panel-heading">Facilities</div>
 <div class="panel-body">
 
 

@@ -98,7 +98,7 @@ $msg="Hall  record deleted successfully";
 											<th>City </th>
 											<th>Price Per day</th>
 											<th>Hall Type</th>
-											<th>Model Year</th>
+											<th>Area</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -109,14 +109,14 @@ $msg="Hall  record deleted successfully";
 											<th>City </th>
 											<th>Price Per day</th>
 											<th>Hall Type</th>
-											<th>Model Year</th>
+											<th>Area</th>
 											<th>Action</th>
 										</tr>
 										</tr>
 									</tfoot>
 									<tbody>
 
-<?php $sql = "SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.ModelYear,tblhalls.id from tblhalls join tblcities on tblcities.id=tblhalls.CityId";
+<?php $sql = "SELECT tblhalls.HallName,tblcities.CityName,tblhalls.PricePerDay,tblhalls.HallType,tblhalls.Area,tblhalls.id from tblhalls join tblcities on tblcities.id=tblhalls.CityId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -131,7 +131,7 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->CityName);?></td>
 											<td><?php echo htmlentities($result->PricePerDay);?></td>
 											<td><?php echo htmlentities($result->HallType);?></td>
-												<td><?php echo htmlentities($result->ModelYear);?></td>
+												<td><?php echo htmlentities($result->Area);?></td>
 		<td><a href="edit-hall.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-halls.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
